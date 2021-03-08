@@ -1,0 +1,9 @@
+.header-ul {
+    display: flex;
+    width: 200px;
+}
+
+.header-ul li {
+    flex-grow: 1;
+    text-align: center;
+}

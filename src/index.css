@@ -12,4 +12,9 @@ code {
     monospace;
 }
 
+ol,
+ul {
+  list-style: none;
+}
+
 @import '~antd/dist/antd.css';
