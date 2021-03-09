@@ -1,14 +1,10 @@
 import React from "react";
-import { Layout, Menu } from "antd";
-import {
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-} from "@ant-design/icons";
+import { Layout } from "antd";
 import "./style.css";
 import ContentMain from "../../components/ContentMain";
 import HeaderBar from "../../components/HeaderBar";
-const { Header, Sider, Content } = Layout;
+import SideNavBar from "../../components/SideNavBar"
+const { Header, Sider, Content, Footer } = Layout;
 
 class Index extends React.Component {
   state = {
@@ -25,18 +21,7 @@ class Index extends React.Component {
     return (
       <Layout>
         <Sider collapsible trigger={null} collapsed={this.state.collapsed}>
-          <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
-              nav 1
-            </Menu.Item>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              nav 2
-            </Menu.Item>
-            <Menu.Item key="3" icon={<UploadOutlined />}>
-              nav 3
-            </Menu.Item>
-          </Menu>
+          <SideNavBar/>
         </Sider>
         <Layout className="site-layout">
           <Header style={{ background: "#fff", padding: "0 16px" }}>
@@ -46,15 +31,15 @@ class Index extends React.Component {
             />
           </Header>
           <Content
-            className="site-layout-background"
             style={{
-              margin: "24px 16px",
-              padding: 24,
               minHeight: 280,
             }}
           >
             <ContentMain />
           </Content>
+          <Footer style={{ textAlign: "center" }}>
+            React Dashboard Demo ©2021 Created by liuhao30@126.com
+          </Footer>
         </Layout>
       </Layout>
     );

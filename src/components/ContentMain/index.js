@@ -1,69 +1,22 @@
 import React from "react";
-import { Form, Input, Button, Checkbox, Avatar } from "antd";
-import {
-  UserOutlined,
-  LockOutlined,
-  AntDesignOutlined,
-} from "@ant-design/icons";
-import { Link, withRouter } from "react-router-dom";
-import backgroundImage from "../../assets/img/background.jpeg";
+import { Route, Switch, Redirect } from "react-router-dom";
+import Home from "../../views/Home/index";
+import { isAuthenticated } from "../../utils/Session";
 
-const onFinish = (values) => {
-  console.log(values);
-};
+const isLoggedIn = !!isAuthenticated();
 
-const ContentMain = () => (
-  <div style={styles.backgroundBox}>
-    <Form
-      style={styles.loginForm}
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-    >
-      <div style={{ textAlign: "center", marginBottom: "10px" }}>
-        <Avatar size={80} icon={<AntDesignOutlined />} />
-      </div>
-      <Form.Item
-        name="username"
-        rules={[{ required: true, message: "Please input your Username!" }]}
-      >
-        <Input
-          prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Username"
-        />
-      </Form.Item>
-      <Form.Item
-        name="password"
-        rules={[{ required: true, message: "Please input your Password!" }]}
-      >
-        <Input
-          prefix={<LockOutlined className="site-form-item-icon" />}
-          type="password"
-          placeholder="Password"
-        />
-      </Form.Item>
-    
-    </Form>
-  </div>
-);
+const ContentMain = () => {
+  return (
+    <div style={{ padding: 16, position: "relative" }}>
+      <Switch>
+        <Route exact path="/home">
+           {isLoggedIn ? <Home /> : <Redirect push to="/login" />}
+        </Route>
 
-const styles = {
-  backgroundBox: {
-    width: "100vw",
-    height: "100vh",
-    backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: "cover",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  loginForm: {
-    backgroundColor: "rgba(255,255,255,0.7)",
-    minWidth: "300px",
-    padding: 20,
-  },
-  loginButton: {
-    width: "100%",
-  },
+        <Redirect exact from="/" to="/home" />
+      </Switch>
+    </div>
+  );
 };
 
 export default ContentMain;

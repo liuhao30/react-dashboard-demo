@@ -11,7 +11,7 @@ const App = () => (
     <Route exact path="/login">
       <Login />
     </Route>
-    <Route exact path="/">
+    <Route  path="/">
       {isLoggedIn ? <Index /> : <Redirect push to="/login" />}
     </Route>
   </Switch>

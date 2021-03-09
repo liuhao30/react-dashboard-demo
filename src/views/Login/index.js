@@ -5,21 +5,21 @@ import {
   LockOutlined,
   AntDesignOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import backgroundImage from "../../assets/img/background.jpeg";
-import { useHistory } from "react-router-dom";
 import { authenticateSuccess } from "../../utils/Session";
 
 const Login = () => {
   let history = useHistory();
 
-  const onFinish = (values) => {
+  function onFinish(values) {
+   
     const { username, password } = values;
     if (username === "admin" && password === "admin") {
       authenticateSuccess("admin");
       history.push("/");
     }
-  };
+  }
 
   return (
     <div style={styles.backgroundBox}>
