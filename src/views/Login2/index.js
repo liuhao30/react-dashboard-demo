@@ -13,13 +13,13 @@ import { authenticateSuccess } from "../../utils/Session";
 const Login = () => {
   let history = useHistory();
 
-  function onFinish(values) {
+  const onFinish = (values) => {
     const { username, password } = values;
     if (username === "admin" && password === "admin") {
       authenticateSuccess("admin");
       history.push("/");
     }
-  }
+  };
 
   return (
     <div style={styles.backgroundBox}>
