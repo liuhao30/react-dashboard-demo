@@ -7,27 +7,19 @@ import {
   ShrinkOutlined,
   ArrowsAltOutlined,
   NotificationOutlined,
-  DownOutlined
+  DownOutlined,
 } from "@ant-design/icons";
+import { withRouter } from "react-router-dom";
 import "./style.css";
 import image from "../../assets/img/avatar.jpg";
-
-const  onClick = ({ key }) => {
-    console.log(`Click on item ${key}`);
-  };
-const menu = (
-  <Menu className="test-menu" onClick={onClick}>
-    <Menu.Item key="1">1st menu item</Menu.Item>
-    <Menu.Item key="2">2nd menu item</Menu.Item>
-    <Menu.Item key="3">3rd menu item</Menu.Item>
-  </Menu>
-);
+import { clearCookie } from "../../utils/Session";
 
 class HeaderBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isFullScreen: false,
+      count: 1000,
     };
   }
 
@@ -51,11 +43,30 @@ class HeaderBar extends React.Component {
     screenfull.toggle();
   };
 
+  logout = () => {
+    clearCookie();
+    console.log(this.props.location.pathname);
+    this.props.history.push(this.props.location.pathname);
+    this.props.history.go();
+  };
 
-
+  decrease = () => {
+    this.setState((state) => ({
+      count: state.count - 1,
+    }));
+  };
   render() {
     const { collapsed } = this.props;
     const { isFullScreen } = this.state;
+    const menu = (
+      <Menu className="test-menu">
+        <Menu.Item>个人信息</Menu.Item>
+        <Menu.Item>
+          <span onClick={this.logout}>退出登录</span>
+        </Menu.Item>
+      </Menu>
+    );
+
     return (
       <div>
         <div style={{ fontSize: 23, float: "left" }} onClick={this.toggle}>
@@ -71,13 +82,22 @@ class HeaderBar extends React.Component {
               )}
             </li>
             <li>
-              <Badge count={1000} overflowCount={999}>
+              <Badge
+                count={this.state.count}
+                overflowCount={999}
+                onClick={this.decrease}
+              >
                 <NotificationOutlined style={{ fontSize: 20 }} />
               </Badge>
             </li>
             <li>
-              <Dropdown overlay={menu} placement="bottomLeft" trigger={['click']}>
+              <Dropdown
+                overlay={menu}
+                placement="bottomLeft"
+                trigger={["click"]}
+              >
                 <a
+                  href="#"
                   className="ant-dropdown-link"
                   onClick={(e) => e.preventDefault()}
                 >
@@ -92,4 +112,4 @@ class HeaderBar extends React.Component {
   }
 }
 
-export default HeaderBar;
+export default withRouter(HeaderBar);
